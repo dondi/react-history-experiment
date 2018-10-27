@@ -1,4 +1,4 @@
-## How to Update Friendbuy Integration Code of SPA Location Changes
+## How to Update Friendbuy Integration Code for SPA Location Changes
 
 This repository holds a very small sample React + React Router app that demonstrates how to communicate with the Friendbuy JavaScript integration code about router-driven changes to the URL.
 
