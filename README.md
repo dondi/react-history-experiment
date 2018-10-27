@@ -1,3 +1,31 @@
+## How to Update Friendbuy Integration Code of SPA Location Changes
+
+This repository holds a very small sample React + React Router app that demonstrates how to communicate with the Friendbuy JavaScript integration code about router-driven changes to the URL.
+
+The key lies in the [following code](https://github.com/dondi/react-history-experiment/blob/master/src/App.js#L40-L52):
+```jsx
+class Listener extends Component {
+  componentDidMount() {
+    this.props.history.listen((location, action) => {
+      window.dispatchEvent(new Event('friendbuy-location-update'))
+    })
+  }
+
+  render() {
+    return <span></span>
+  }
+}
+
+const HistoryListener = withRouter(Listener)
+```
+The `HistoryListener` component can then be embedded in some top-level component of the app.
+
+The key principle here is to detect when the React Router library routes to a new location. When that happens, the custom Friendbuy event `friendbuy-location-update` needs to be manually dispatched at the level of the `window` object. This will allow the Friendbuy JavaScript integration code to perform the necessary operations regarding widgets, particularly ribbons and targeted widgets.
+
+The component itself is not as important as the listener on the app's `history` object. So, as long as some kind of `history.listen` call can be set up, which in turn fires the `friendbuy-location-update` event, developers can adapt this technique depending on the specific structure of their own applications.
+
+## Boilerplate Create React App README
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
